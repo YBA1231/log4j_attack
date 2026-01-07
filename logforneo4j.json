@@ -1,0 +1,60 @@
+{
+    "rules": [
+        {
+            "source": "WAF",
+            "conditions": {
+                "attack_type": "SQL Injection"
+            },
+            "technique": {
+                "id": "T1190",
+                "name": "Exploit Public-Facing Application",
+                "tactic": "TA0001"
+            }
+        },
+        {
+            "source": "WAF",
+            "conditions": {
+                "attack_type": "XSS"
+            },
+            "technique": {
+                "id": "T1190",
+                "name": "Exploit Public-Facing Application",
+                "tactic": "TA0001"
+            }
+        },
+        {
+            "source": "EDR",
+            "conditions": {
+                "process": "powershell.exe"
+            },
+            "technique": {
+                "id": "T1059",
+                "name": "Command and Scripting Interpreter",
+                "tactic": "TA0002"
+            }
+        },
+        {
+            "source": "SIEM",
+            "conditions": {
+                "description_contains": "T1109"
+            },
+            "technique": {
+                "id": "T1109",
+                "name": "Component Object Model Hijacking",
+                "tactic": "TA0003"
+            }
+        },
+        {
+            "source": "Firewall",
+            "conditions": {
+                "action": "ALLOW",
+                "protocol": "TCP/22"
+            },
+            "technique": {
+                "id": "T1021",
+                "name": "Remote Services",
+                "tactic": "TA0008"
+            }
+        }
+    ]
+}
