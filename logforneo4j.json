@@ -1,60 +1,119 @@
 {
-    "rules": [
+    "metadata": {
+        "attack_name": "Command and Scripting Interpreter",
+        "created_at": "2023-12-01T12:00:00Z",
+        "total_nodes": 7,
+        "total_relationships": 5,
+        "ttp_id": "T1059"
+    },
+    "nodes": [
         {
-            "source": "WAF",
-            "conditions": {
-                "attack_type": "SQL Injection"
-            },
-            "technique": {
-                "id": "T1190",
-                "name": "Exploit Public-Facing Application",
-                "tactic": "TA0001"
+            "id": "1",
+            "label": "Technique",
+            "properties": {
+                "description": "T1059 - Execution through the use of command line interfaces",
+                "name": "Command and Scripting Interpreter"
             }
         },
         {
-            "source": "WAF",
-            "conditions": {
-                "attack_type": "XSS"
-            },
-            "technique": {
-                "id": "T1190",
-                "name": "Exploit Public-Facing Application",
-                "tactic": "TA0001"
+            "id": "2",
+            "label": "Attacker",
+            "properties": {
+                "description": "The entity performing the attack",
+                "name": "Unknown Attacker"
             }
         },
         {
-            "source": "EDR",
-            "conditions": {
-                "process": "powershell.exe"
-            },
-            "technique": {
-                "id": "T1059",
-                "name": "Command and Scripting Interpreter",
-                "tactic": "TA0002"
+            "id": "3",
+            "label": "IP",
+            "properties": {
+                "description": "Source IP address of the attacker",
+                "name": "192.168.1.100"
             }
         },
         {
-            "source": "SIEM",
-            "conditions": {
-                "description_contains": "T1109"
-            },
-            "technique": {
-                "id": "T1109",
-                "name": "Component Object Model Hijacking",
-                "tactic": "TA0003"
+            "id": "4",
+            "label": "IP",
+            "properties": {
+                "description": "Target IP address of the victim",
+                "name": "10.20.30.40"
             }
         },
         {
-            "source": "Firewall",
-            "conditions": {
-                "action": "ALLOW",
-                "protocol": "TCP/22"
-            },
-            "technique": {
-                "id": "T1021",
-                "name": "Remote Services",
-                "tactic": "TA0008"
+            "id": "5",
+            "label": "User",
+            "properties": {
+                "description": "User involved in the authentication and process creation",
+                "name": "admin"
             }
+        },
+        {
+            "id": "6",
+            "label": "Process",
+            "properties": {
+                "description": "Bash shell used in command execution",
+                "name": "/usr/bin/bash"
+            }
+        },
+        {
+            "id": "7",
+            "label": "Asset",
+            "properties": {
+                "description": "Hostname of the asset where suspicious activities were detected",
+                "name": "HOST-100"
+            }
+        }
+    ],
+    "relationships": [
+        {
+            "id": "r1",
+            "properties": {
+                "description": "Attacker uses command and scripting interpreter technique",
+                "timestamp": "2023-12-01T10:17:00Z"
+            },
+            "source": "2",
+            "target": "1",
+            "type": "USES"
+        },
+        {
+            "id": "r2",
+            "properties": {
+                "description": "Attacker IP connects to Victim IP",
+                "timestamp": "2023-12-01T10:15:00Z"
+            },
+            "source": "3",
+            "target": "4",
+            "type": "CONNECTS_TO"
+        },
+        {
+            "id": "r3",
+            "properties": {
+                "description": "Process executed by the asset",
+                "timestamp": "2023-12-01T10:18:00Z"
+            },
+            "source": "6",
+            "target": "7",
+            "type": "EXECUTED_BY"
+        },
+        {
+            "id": "r4",
+            "properties": {
+                "description": "Process used by the user",
+                "timestamp": "2023-12-01T10:19:00Z"
+            },
+            "source": "6",
+            "target": "5",
+            "type": "USED_BY"
+        },
+        {
+            "id": "r5",
+            "properties": {
+                "description": "User authenticates on the asset",
+                "timestamp": "2023-12-01T10:21:00Z"
+            },
+            "source": "5",
+            "target": "7",
+            "type": "AUTHENTICATES"
         }
     ]
 }
