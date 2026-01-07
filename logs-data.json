@@ -1,0 +1,104 @@
+{
+  "firewall": [
+    {
+      "id": "fw-001",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "source": "192.168.1.100",
+      "destination": "10.0.0.50",
+      "action": "BLOCK",
+      "protocol": "TCP/443"
+    },
+    {
+      "id": "fw-002",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "source": "192.168.1.100",
+      "destination": "10.0.0.51",
+      "action": "ALLOW",
+      "protocol": "TCP/22"
+    },
+    {
+      "id": "fw-003",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "source": "192.168.1.105",
+      "destination": "10.0.0.50",
+      "action": "BLOCK",
+      "protocol": "UDP/53"
+    }
+  ],
+  "waf": [
+    {
+      "id": "waf-001",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "attack_type": "SQL Injection",
+      "severity": "HIGH",
+      "blocked": true,
+      "payload": "' OR '1'='1"
+    },
+    {
+      "id": "waf-002",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "attack_type": "XSS",
+      "severity": "MEDIUM",
+      "blocked": true,
+      "payload": "<script>alert(\"xss\")</script>"
+    }
+  ],
+  "siem": [
+    {
+      "id": "siem-001",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "alert_name": "異常登入嘗試",
+      "severity": "HIGH",
+      "affected_assets": [
+        "server-01",
+        "server-02"
+      ],
+      "description": "檢測到與 TTP: T1109 相關的可疑活動"
+    },
+    {
+      "id": "siem-002",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "alert_name": "橫向移動",
+      "severity": "CRITICAL",
+      "affected_assets": [
+        "workstation-10",
+        "server-01"
+      ],
+      "description": "檢測到內網橫向移動行為"
+    }
+  ],
+  "edr": [
+    {
+      "id": "edr-001",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "process": "powershell.exe",
+      "action": "BLOCKED",
+      "severity": "HIGH",
+      "details": "檢測到可疑的PowerShell執行"
+    },
+    {
+      "id": "edr-002",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "process": "cmd.exe",
+      "action": "MONITORED",
+      "severity": "MEDIUM",
+      "details": "異常命令行活動"
+    }
+  ],
+  "system": [
+    {
+      "id": "sys-001",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "event_type": "Login",
+      "user": "admin",
+      "details": "失敗的登入嘗試"
+    },
+    {
+      "id": "sys-002",
+      "timestamp": "2026-01-07T06:38:28.712Z",
+      "event_type": "File Access",
+      "user": "user123",
+      "details": "訪問敏感文件"
+    }
+  ]
+}
